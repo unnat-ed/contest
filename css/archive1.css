@@ -1,0 +1,711 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+body {
+  overflow-x: hidden;
+  background: linear-gradient(to bottom left, #8C99A3, #DCE5EE) fixed;  
+  color: gray;
+  font: 1em/1.4 "lato";
+}
+input {
+  position: fixed;
+  opacity: 0;
+}
+
+label {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+label::before {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(18, 67, 100, .6);
+  color:white;
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+label .burger {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  z-index: 3;
+  width: 2em;
+  height: 2em;
+  margin: 0;
+  padding: 0;
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+label .burger::before,
+label .burger .bar,
+label .burger::after {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 12%;
+  background: white;
+  content: '';
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+label .burger .bar {
+  top: 44%;
+}
+
+label .burger::before {
+  top: 0;
+  transform-origin: top left;
+}
+
+label .burger::after {
+  bottom: 0;
+  transform-origin: bottom left;
+}
+
+input:focus+label .burger,
+label:hover .burger {
+  opacity: 0.75;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  transform: translate3d(0, 0, 0);
+  /* material acceleration */
+  transform: translateX(-100%);
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+nav::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 25em;
+  background: #d62956;
+  content: '';
+  transform: skewX(15deg) translateX(-100%);
+  transform-origin: bottom left;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@media (min-width: 40em) {
+  nav::before {
+    width: 40em;
+  }
+}
+
+nav a,
+.dropdown {
+  margin: 0.5em 0;
+  padding: 0.2em 2em;
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transform: translateX(-100%);
+  transition: color 0.15s, transform 0.5s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.dropdown-container {
+  display: none;
+  padding-left: 8px;
+}
+
+nav a:nth-child(1) {
+  transition-delay: 0s, 100ms;
+}
+
+nav a:nth-child(2) {
+  transition-delay: 0s, 150ms;
+}
+
+nav a:nth-child(3) {
+  transition-delay: 0s, 200ms;
+}
+
+nav a:nth-child(4) {
+  transition-delay: 0s, 250ms;
+}
+
+nav a:nth-child(5) {
+  transition-delay: 0s, 300ms;
+}
+
+nav a:nth-child(6) {
+  transition-delay: 0s, 350ms;
+}
+
+nav a:hover,
+.dropdown :hover,
+nav a:focus {
+  color: black;
+}
+
+main {
+  overflow: hidden;
+}
+
+main .content {
+  transform: translate3d(0, 0, 0);
+  /* material acceleration */
+  will-change: transform, filter;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+[id="navcheck"]:checked+label::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+[id="navcheck"]:checked+label .burger::before,
+[id="navcheck"]:checked+label .burger::after {
+  width: 141.42%;
+}
+
+[id="navcheck"]:checked+label .burger::before {
+  transform: rotate(45deg) translateY(-50%);
+}
+
+[id="navcheck"]:checked+label .burger::after {
+  transform: rotate(-45deg) translateY(50%);
+}
+
+[id="navcheck"]:checked+label .burger .bar {
+  transform: scale(0.1);
+}
+
+[id="navcheck"]:checked~nav {
+  transform: translateX(0);
+}
+
+[id="navcheck"]:checked~nav::before {
+  transform: skewX(15deg) translateX(0);
+}
+
+[id="navcheck"]:checked~nav a {
+  transform: translateX(0);
+}
+
+[id="navcheck"]:checked~main .content {
+  transform: translateX(3em);
+  transform-origin: left center;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+  /* quite laggy :S */
+}
+
+/* helper */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* misc */
+
+
+main {
+  background: #3498db;
+  padding: 5% 0;
+}
+
+article {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 1.3em;
+}
+
+@media (min-width: 60em) {
+  article {
+    width: 50%;
+  }
+}
+
+h1 {
+  font: 2.5em/1.4 "roboto condensed";
+  font-weight: 700;
+}
+
+.card-flip {
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+
+.card-flip:hover .flip,
+.card-flip.hover .flip {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.card-flip,
+.front,
+.back {
+  width: 14rem;
+  height: 9rem;
+  position: absolute;
+  top: 9rem;
+  left: 0rem;
+}
+
+.flip {
+  transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.back .card-title {
+  font-family: 'Franklin Gothic Medium';
+}
+
+.card-flip .card-text {
+  font-family: Helvetica, serif;
+  font-size: 1rem;
+
+}
+
+.card-flip .card-list {
+  font-family: Helvetica, serif;
+  font-size: 0.8rem;
+  position: relative;
+  right: 1rem;
+  list-style-type: none;
+}
+
+.card-subtitle .text-muted {
+  font-family: Helvetica, sans-serif;
+  font-size: 10rem !important;
+  color: darkgray !important;
+}
+
+.hor {
+  margin-top: 0.3rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.front,
+.back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.front {
+  z-index: 2;
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+.back {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+/*             */
+#one .card-flip {
+
+  width: 14rem;
+  height: 9rem;
+  position: absolute;
+  top: 4rem;
+  left: 27rem;
+}
+
+#two .card-flip {
+
+  width: 14rem;
+  height: 9rem;
+  position: absolute;
+  top: 16rem !important;
+  left: 45rem !important;
+}
+
+#four .card-flip {
+
+  width: 14rem;
+  height: 9rem;
+  position: absolute;
+  top: 16rem;
+  left: 10rem;
+}
+
+#five .card-flip {
+
+  width: 14rem;
+  height: 2rem;
+  position: absolute;
+  top: 4rem;
+  left: -7rem;
+}
+
+#six .card-flip {
+
+  width: 14rem;
+  height: 2rem;
+  position: absolute;
+  top: 4rem;
+  left: 63rem;
+}
+
+.card {
+  background-color: #e1e1e1;
+  color: #181c26;
+}
+
+#five .card-link {
+  font-size: 1rem;
+  position: relative;
+  left: 3rem;
+
+  border-radius: 1rem 1rem 1rem 1rem;
+  box-align: center !important;
+  width: 20rem !important;
+  margin-bottom: 0.3rem !important;
+  color: white !important;
+}
+
+.card-link {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem 1rem 1rem 1rem;
+  position: relative;
+  left: 3rem;
+  width: 20rem !important;
+  color: white !important;
+  background-color: #181c26;
+}
+
+/**/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+.radial {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  top: 0rem;
+  left: 40rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto;
+}
+
+.radial input {
+  display: none;
+}
+
+.radial>label,
+.radial>a {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 0;
+  line-height: 3rem;
+  z-index: 4;
+}
+
+.radial label:before,
+.radial a:before {
+  font-size: 1.2000000000000002rem;
+  color: white;
+}
+
+.radial a {
+  color: transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.radial label {
+  border-radius: 0 0 1.5rem 1.5rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-bottom: 0.25rem solid #2f2f2f;
+  box-shadow: 0 0.1875rem rgba(0, 0, 0, 0.25);
+  transition: border-bottom 0.25s, box-shadow 0.5s;
+}
+
+.radial input:checked~label {
+  border-bottom-width: 1px;
+  box-shadow: none;
+}
+
+.radial a[href] {
+  transition: top 0.1s, left 0.25s, opacity 1s, box-shadow 0.25s;
+  border-radius: 1.5rem;
+  opacity: 0;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #888;
+  box-sizing: border-box;
+}
+
+.radial a[href]:hover {
+  background-color: #1abc9c;
+  border-bottom-color: #2c7768;
+}
+
+.radial input:checked~a[href] {
+  transition: top 1s, left 0.6s, box-shadow 1s, background-color 0.25s, border-bottom-color 0.25s, border-bottom-width 0.25s;
+  opacity: 1;
+}
+
+.radial a[href]:hover {
+  border-bottom-width: 0.25rem;
+}
+
+.radial input:checked~a[href]:nth-of-type(1),
+.radial input:checked~a[href]:nth-of-type(5) {
+  box-shadow: 0 -0.1875rem 0.375rem rgba(0, 0, 0, 0.25);
+}
+
+.radial input:checked~a[href]:nth-of-type(1) {
+  left: -4.727077214458599rem;
+  top: 0.8335112528012654rem;
+}
+
+.radial input:checked~a[href]:nth-of-type(2) {
+  left: -3.0853805264953893rem;
+  top: 3.6770133269710947rem;
+}
+
+.radial input:checked~a[href]:nth-of-type(3) {
+  left: 0.00000000000000029392rem;
+  top: 4.800000000000001rem;
+}
+
+.radial input:checked~a[href]:nth-of-type(4) {
+  left: 3.0853805264953893rem;
+  top: 3.6770133269710947rem;
+}
+
+.radial input:checked~a[href]:nth-of-type(5) {
+  left: 4.727077214458599rem;
+  top: 0.8335112528012657rem;
+}
+
+body.search-active {
+  overflow: hidden;
+}
+
+body.search-active .search-input {
+  opacity: 1;
+  transform: none;
+  pointer-events: all;
+}
+
+body.search-active .icon-close {
+  opacity: 1;
+  transform: rotate(-90deg);
+}
+
+body.search-active .control {
+  cursor: default;
+}
+
+body.search-active .control .btn-material {
+  transform: scale(70);
+}
+
+body.search-active .control .icon-material-search {
+  opacity: 0;
+}
+
+/* Close Icon */
+.icon-close {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 70px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon-close:hover {
+  transform: rotate(0);
+}
+
+/* Search Input */
+.search-input {
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  margin-top: -40px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(40px, 0);
+  transition: all 0.3s ease-in-out;
+}
+
+.search-input input {
+  color: #fff;
+  font-size: 54px;
+  border: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  outline: 0;
+  font-weight: 200;
+}
+
+.search-input ::-webkit-input-placeholder {
+  color: #eee;
+}
+
+.search-input :-moz-placeholder {
+  color: #eee;
+  opacity: 1;
+}
+
+.search-input ::-moz-placeholder {
+  color: #eee;
+  opacity: 1;
+}
+
+.search-input :-ms-input-placeholder {
+  color: #eee;
+}
+
+/* Container */
+.container {
+  padding-right: 50px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.container.container-dark {
+  background: #22313f;
+  color: #fff;
+}
+
+/* Control btn */
+.control {
+  cursor: pointer;
+}
+
+.control .btn-material {
+  position: absolute;
+  top: -30px;
+  width: 60px;
+  height: 60px;
+  right: 60px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  background: #e91e63;
+  outline: 0;
+  transform-origin: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control .btn-material:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.control .icon-material-search {
+  color: #fff;
+  position: absolute;
+  top: -10px;
+  right: 78px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Utilities */
+.swanim{
+  bottom:-2rem;
+  position: relative;
+  
+}
+ 
+@media screen and (max-width: 992px) {
+  .swanim{
+    visibility: hidden;
+  }
+  
+  #one .card-flip {
+
+    width: 14rem;
+    height: 9rem;
+    position: absolute;
+    top: 4rem;
+    left: 27rem;
+  }
+  
+  #two .card-flip {
+  
+    width: 14rem;
+    height: 9rem;
+    position: absolute;
+    top: 29rem !important;
+    left: 27rem !important;
+  }
+  
+  #four .card-flip {
+  
+    width: 14rem;
+    height: 9rem;
+    position: absolute;
+    top: 54rem;
+    left: 27rem;
+  }
+  
+  #five .card-flip {
+  
+    width: 34rem;
+    height: 2rem;
+    position: absolute;
+    top: 79rem;
+    left: 27rem;
+  }
+  
+  #six .card-flip {
+  
+    width: 104rem;
+    height: 2rem;
+    position: absolute;
+    top: 104rem;
+    left: 27rem;
+  } 
+ 
+}
